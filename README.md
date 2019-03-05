@@ -20,5 +20,5 @@ Observações:
 • Publicar o aplicativo no GitHub e enviar o link do repositório;
 
 Dependências:
-bootstrap
-reactstrap
+bootstrap;
+reactstrap;
