@@ -1,25 +1,61 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import { Button, Input, FormGroup, Form } from 'reactstrap'
+import Dados from '../src/Dados'
+
+const API_KEY = "3352c2738fdf23a0cd968b8f63c5e4a1"
 
 class App extends Component {
+  state = {
+    cidade: ''
+    // codigo: ''
+  }
+
+  handleFieldChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  handlePesquisar = async (e) => {
+    e.preventDefault()
+    const { cidade } = this.state
+    //const response = await fetch(`api.openweathermap.org/data/2.5/forecast?q=Manchester&appid=${API_KEY}`)
+    const response = await fetch(`api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}`)
+
+    const data = await response.json()
+
+    console.log(data)
+  }
+
   render() {
+    const { cidade } = this.state
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="container">
+        <h2>Previsão do Tempo</h2>
+        <hr />
+        <div className="form">
+          <Form className="form-inline">
+            <FormGroup>
+              <Input
+                style={{ width: "18vw" }}
+                placeholder="Cidade -> Ex: Blumenau"
+                name="cidade"
+                value={cidade}
+                onChange={this.handleFieldChange}
+              />
+              {/*
+              <Input
+                placeholder="Código -> Ex: BR"
+                name="codigo"
+                value={codigo}
+                onChange={this.handleFieldChange}
+              />
+              */}
+            </FormGroup>
+            <Button color="secondary" onClick={this.handlePesquisar}>Pesquisar</Button>{' '}
+          </Form>
+          <hr />
+        </div>
+        <Dados />
       </div>
     );
   }
