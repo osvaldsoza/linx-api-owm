@@ -22,4 +22,4 @@ Observações:
 Dependências:
 bootstrap;
 reactstrap;
-axios;
+
