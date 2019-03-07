@@ -22,4 +22,5 @@ Observações:
 Dependências:
 bootstrap;
 reactstrap;
+moment para formatação de data;
 
