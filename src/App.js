@@ -1,64 +1,78 @@
-import React, { Component } from 'react'
-import './App.css'
-import { Button, Input, FormGroup, Form } from 'reactstrap'
-import Dados from '../src/Dados'
+import React from "react";
 
-const API_KEY = "3352c2738fdf23a0cd968b8f63c5e4a1"
+import Titles from "./components/Titles";
+import Form from "./components/Form";
+import Weather from "./components/Weather";
 
-class App extends Component {
+const API_KEY = "3352c2738fdf23a0cd968b8f63c5e4a1";
+
+class App extends React.Component {
   state = {
-    cidade: ''
-    // codigo: ''
+    cidade: '',
+    pais: '',
+    populacao: '',
+    latitude: '',
+    longitude: '',
+    error: ''
+  }
+  getDados = async (e) => {
+    e.preventDefault();
+    const cidade = e.target.elements.cidade.value;
+    
+    if (cidade) {
+      const api_call = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt`)
+      const dados = await api_call.json();
+      
+      this.setState({
+        cidade: dados.city.name,
+        pais: dados.city.country,
+        populacao: dados.city.population,
+        latitude: dados.city.coord.lat,
+        longitude: dados.city.coord.lon,
+        error: ''
+      });
+    } else {
+      this.setState({
+        error: "Informe a Cidade para consulta!"
+      });  
+    }
+    console.log(this.state.data);
   }
 
   handleFieldChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
-
-  handlePesquisar = async (e) => {
-    e.preventDefault()
-    const { cidade } = this.state
-    //const response = await fetch(`api.openweathermap.org/data/2.5/forecast?q=Manchester&appid=${API_KEY}`)
-    const api_call = await fetch(`api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric`)
-    //const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&units=metric`);
-    const data = await api_call.json();
-
-    console.log(data)
-  }
-
   render() {
-    const { cidade } = this.state
+
+    const { cidade, pais, populacao, error, latitude, longitude } = this.state
+
     return (
-      <div className="container">
-        <h2>Previsão do Tempo</h2>
-        <hr />
-        <div className="form">
-          <Form className="form-inline">
-            <FormGroup>
-              <Input
-                style={{ width: "18vw" }}
-                placeholder="Cidade -> Ex: Blumenau"
-                name="cidade"
-                value={cidade}
-                onChange={this.handleFieldChange}
-              />
-              {/*
-              <Input
-                placeholder="Código -> Ex: BR"
-                name="codigo"
-                value={codigo}
-                onChange={this.handleFieldChange}
-              />
-              */}
-            </FormGroup>
-            <Button color="secondary" onClick={this.handlePesquisar}>Pesquisar</Button>{' '}
-          </Form>
-          <hr />
+      <div>
+        <div className="wrapper">
+          <div className="main">
+            <div className="container">
+              <div className="row">
+                <div className="col-xs-5 title-container">
+                  <Titles />
+                </div>
+                <div className="col-xs-7 form-container">
+                  <Form getDados={this.getDados} />
+                  <Weather
+                    cidade={cidade}
+                    pais={pais}
+                    populacao={populacao}
+                    latitude={latitude}
+                    longitude={longitude}
+                    error={error}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <Dados />
       </div>
     );
   }
-}
+};
 
 export default App;
