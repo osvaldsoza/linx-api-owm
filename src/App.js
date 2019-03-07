@@ -20,11 +20,10 @@ class App extends React.Component {
   handleBuscarDados = async (e) => {
     e.preventDefault();
     const cidade = e.target.elements.cidade.value;
-
+  const {dados} = this.state
     if (cidade) {
       const api_call = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt`)
       this.setState({ dados: await api_call.json() });
-      //const dados = await api_call.json();
 
       this.setState({
         cidade: this.state.dados.city.name,

@@ -15,7 +15,7 @@ const Apresentacao = props => (
 		}
 		{
 			props.latitude && props.longitude && <p className="linx__key"> Coord.:
-	 		<span className="linx__value"> {`lat. ${props.latitude}`},{`lon.: ${props.longitude}`} </span>
+	 		<span className="linx__value"> {`lat. ${props.latitude}`},{`lon. ${props.longitude}`} </span>
 			</p>
 		}
 		{
