@@ -19,9 +19,9 @@ class App extends Component {
     e.preventDefault()
     const { cidade } = this.state
     //const response = await fetch(`api.openweathermap.org/data/2.5/forecast?q=Manchester&appid=${API_KEY}`)
-    const response = await fetch(`api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}`)
-
-    const data = await response.json()
+    const api_call = await fetch(`api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric`)
+    //const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&units=metric`);
+    const data = await api_call.json();
 
     console.log(data)
   }
