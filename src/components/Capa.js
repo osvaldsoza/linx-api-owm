@@ -1,6 +1,6 @@
 import React from "react";
 
-const Titles = () => (
+const Capa = () => (
 	<div>
 		<h1 className="title-container__title">Linx</h1>
 		<h3 className="title-container__subtitle">Previsão do Tempo</h3>
@@ -8,4 +8,4 @@ const Titles = () => (
 	</div>
 );
 
-export default Titles;
+export default Capa;

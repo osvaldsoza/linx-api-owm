@@ -1,6 +1,6 @@
 import React from "react";
 
-import Titles from "./components/Titles";
+import Titles from "./components/Capa";
 import Form from "./components/Form";
 import Apresentacao from "./components/Apresentacao";
 
@@ -21,20 +21,24 @@ class App extends React.Component {
 
   handleBuscarDados = async (e) => {
     e.preventDefault();
-
+    this.setState({
+      cidade: '',
+      pais: '',
+      populacao: '',
+      data: '',
+      humidade: '',
+      temperatura: '',
+      clima: '',
+      error: ''
+    });
     const cidade = e.target.elements.cidade.value;
 
     if (cidade.trim()) {
       const api_call = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt`)
 
-      // axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt`)
-      //   .then(res => {
-      //     const dados = res.data
-      //     this.setState({ getDadosApi: dados });
-      //   })
-
       if (api_call.status === 404) {
-        alert('Cidade não encontrada ou inválida!!!')
+        //alert('Cidade não encontrada ou inválida!!!')
+        this.setState({  error: "Cidade inválida!!!!"  });
       } else {
         const getDadosApi = await api_call.json()
       
