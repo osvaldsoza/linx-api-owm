@@ -22,4 +22,10 @@ Observações:
 Dependências:
 bootstrap;
 reactstrap;
+moment para formatação de data;
+
+Execução:
+git clone...
+npm install
+npm start ou yarn start
 
