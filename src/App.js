@@ -37,8 +37,7 @@ class App extends React.Component {
       const api_call = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt`)
 
       if (api_call.status === 404) {
-        //alert('Cidade não encontrada ou inválida!!!')
-        this.setState({  error: "Cidade inválida!!!!"  });
+        this.setState({  error: "Cidade inválida ou não existe!!!"  });
       } else {
         const getDadosApi = await api_call.json()
       
