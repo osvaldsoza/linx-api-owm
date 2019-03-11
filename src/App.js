@@ -1,10 +1,11 @@
-import React from "react";
+import React from "react"
 
-import Titles from "./components/Capa";
-import Form from "./components/Form";
-import Apresentacao from "./components/Apresentacao";
+import Capa from "./components/Capa"
+import Form from "./components/Form"
+import Apresentacao from "./components/Apresentacao"
+import axios from "axios"
 
-const API_KEY = "3352c2738fdf23a0cd968b8f63c5e4a1";
+const API_KEY = "3352c2738fdf23a0cd968b8f63c5e4a1"
 
 class App extends React.Component {
   state = {
@@ -12,78 +13,72 @@ class App extends React.Component {
     pais: '',
     populacao: '',
     error: '',
-    data: '',
+    data: [],
     humidade: '',
     temperatura: '',
     clima: '',
-    getDadosApi: []
+    getDadosApi: [],
+    api_call: []
   }
 
-  handleBuscarDados = async (e) => {
+  handleBuscarDados = (e) => {
     e.preventDefault();
     this.setState({
       cidade: '',
       pais: '',
-      populacao: '',
       data: '',
       humidade: '',
       temperatura: '',
       clima: '',
-      error: ''
+      error: '',
+
     });
     const cidade = e.target.elements.cidade.value;
 
     if (cidade.trim()) {
-      const api_call = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt`)
-
-      if (api_call.status === 404) {
-        this.setState({  error: "Cidade inválida ou não existe!!!"  });
-      } else {
-        const getDadosApi = await api_call.json()
-      
-        this.setState({
-          cidade: getDadosApi.city.name,
-          pais: getDadosApi.city.country,
-          data: getDadosApi.list[0].dt_txt,
-          temperatura: getDadosApi.list[0].main.temp,
-          humidade: getDadosApi.list[0].main.humidity,
-          clima: getDadosApi.list[0].weather[0].description,
-          error: ''
-        });
-      }
+      axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt`)
+        .then((res) => {
+          this.setState({
+            cidade: res.data.city.name,
+            pais: res.data.city.country,
+            getDadosApi:res.data.list
+          });
+        }).catch(e => {
+          this.setState({
+            cidade: '',
+            pais: '',
+            error: "Cidade inválida ou não existe!!!"
+          });
+        })
     } else {
       this.setState({
         cidade: '',
         pais: '',
-        populacao: '',
-        data: '',
-        humidade: '',
-        temperatura: '',
-        clima: '',
         error: "Informe a Cidade para consulta!"
       });
     }
+
+    console.log(this.state.getDadosApi)
   }
 
   render() {
     const {
       cidade,
       pais,
+      getDadosApi,
       error,
-      data,
-      temperatura,
-      humidade,
-      clima
     } = this.state
-
+    const data = getDadosApi.map(item => {
+      return item.dt_txt
+    })
     return (
       <div>
         <div className="wrapper">
           <div >
             <div>
-              <div className="row" style={{display: 'flex', flexDirection: 'row'}}>
+              <div className="row" style={{ display: 'flex', flexDirection: 'row' }}>
                 <div className="col-xs-5 title-container">
-                  <Titles />
+                  <Capa />
                 </div>
                 <div className="col-xs-7 form-container">
                   <Form
@@ -93,9 +88,6 @@ class App extends React.Component {
                     cidade={cidade}
                     pais={pais}
                     data={data}
-                    temperatura={temperatura}
-                    humidade={humidade}
-                    clima={clima}
                     error={error}
                   />
                 </div>
