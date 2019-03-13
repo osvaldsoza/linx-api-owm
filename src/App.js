@@ -102,7 +102,7 @@ class App extends React.Component {
                       <div>
                         <p className="linx__info linx__key"> Data e Hora</p>
                         <FormControl as="select"
-                          style={{ width: '12vw' }}>
+                          style={{ width: '12vw', background: '#f8e3e1' }}>
                           {
                             data.map(item => {
                               return (

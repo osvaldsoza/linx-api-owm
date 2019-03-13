@@ -137,19 +137,3 @@ button:active {
 .modal-content {
   width: 900px;
 }
-.list-group {
-  padding: 3px;
-  border: 1px solid;
-  height: 157px;
-  overflow-y: auto;
-  width: 200px;
-  margin-bottom: 0px;
-}
-.list-group-item {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  margin-top: 2px;
-  padding: 2px;
-}
- 
