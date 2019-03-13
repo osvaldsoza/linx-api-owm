@@ -4,6 +4,11 @@ import Capa from "./components/Capa"
 import Form from "./components/Form"
 import Apresentacao from "./components/Apresentacao"
 import axios from "axios"
+import {
+  FormControl
+
+} from 'react-bootstrap';
+import moment from 'moment';
 
 const API_KEY = "3352c2738fdf23a0cd968b8f63c5e4a1"
 
@@ -31,6 +36,7 @@ class App extends React.Component {
       temperatura: '',
       clima: '',
       error: '',
+      dateTime: ''
 
     });
     const cidade = e.target.elements.cidade.value;
@@ -41,7 +47,7 @@ class App extends React.Component {
           this.setState({
             cidade: res.data.city.name,
             pais: res.data.city.country,
-            getDadosApi:res.data.list
+            getDadosApi: res.data.list
           });
         }).catch(e => {
           this.setState({
@@ -67,6 +73,7 @@ class App extends React.Component {
       pais,
       getDadosApi,
       error,
+      dateTime
     } = this.state
     const data = getDadosApi.map(item => {
       return item.dt_txt
@@ -90,6 +97,23 @@ class App extends React.Component {
                     data={data}
                     error={error}
                   />
+                  {
+                    cidade ?
+                      <div>
+                        <p className="linx__info linx__key"> Data e Hora</p>
+                        <FormControl as="select"
+                          style={{ width: '12vw' }}>
+                          {
+                            data.map(item => {
+                              return (
+                                <option value={dateTime}>{moment(item).format("DD/MM/YYYY HH:mm")}</option>
+                              )
+                            })
+                          }
+                        </FormControl>
+                      </div>
+                      : null
+                  }
                 </div>
               </div>
             </div>
