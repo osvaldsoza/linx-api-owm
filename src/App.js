@@ -23,7 +23,7 @@ class App extends React.Component {
     humidade: '',
     temperatura: '',
     clima: '',
-    getDadosApi: [],
+    getDadosDatas: [],
     api_call: []
   }
 
@@ -37,7 +37,8 @@ class App extends React.Component {
       temperatura: '',
       clima: '',
       error: '',
-      dateTime: ''
+      dateTime: '',
+      dadosDataSelecionada: {}
 
     });
     const cidade = e.target.elements.cidade.value;
@@ -48,7 +49,7 @@ class App extends React.Component {
           this.setState({
             cidade: res.data.city.name,
             pais: res.data.city.country,
-            getDadosApi: res.data.list
+            getDadosDatas: res.data.list
           });
         }).catch(e => {
           this.setState({
@@ -65,26 +66,41 @@ class App extends React.Component {
       });
     }
 
-    console.log(this.state.getDadosApi)
+    console.log(this.state.getDadosDatas)
   }
 
   handleOnChangeSolicitacao = (dateTime) => {
     this.setState({
       dateTime
-    });
+    }, () => {
+       const dadosData = this.state.getDadosDatas.filter(item => item.dt_txt === dateTime).map(i => ({
+        tempMax: i.main.temp_max,
+        temMin: i.main.temp_min,
+        humidade: i.main.humidity,
+        grndLevel: i.main.grnd_level,
+        pressure: i.main.pressure,
+        seaLevel: i.main.sea_level,
+        temp: i.main.temp,
+        tempKf: i.main.temp_kf,
+        main: i.weather[0].main,
+        description: i.weather[0].description,
+        speedWind: i.wind.speed
+      }))
+      console.log(this.state.getDadosDatas)
+      console.log(dadosData.humidade)
+    })
   }
   render() {
     const {
       cidade,
       pais,
-      getDadosApi,
+      getDadosDatas,
       error,
       dateTime
     } = this.state
-    const data = getDadosApi.map(item => {
+    const data = getDadosDatas.map(item => {
       return item.dt_txt
     })
-    console.log(getDadosApi)
     return (
       <div>
         <div className="wrapper">
@@ -122,7 +138,7 @@ class App extends React.Component {
                                 }
                                 active={dateTime === item}
                               >
-                                {moment(item).format("DD/MM/YYYY HH:mm")}
+                                {moment(item).format("DD/MM/YYYY - HH:mm")}
                               </ListGroupItem>
                             );
                           })}
