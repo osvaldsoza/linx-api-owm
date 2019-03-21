@@ -5,7 +5,8 @@ import Form from "./components/Form"
 import Apresentacao from "./components/Apresentacao"
 import axios from "axios"
 import {
-  FormControl
+  ListGroup,
+  ListGroupItem
 
 } from 'react-bootstrap';
 import moment from 'moment';
@@ -67,6 +68,11 @@ class App extends React.Component {
     console.log(this.state.getDadosApi)
   }
 
+  handleOnChangeSolicitacao = (dateTime) => {
+    this.setState({
+      dateTime
+    });
+  }
   render() {
     const {
       cidade,
@@ -78,16 +84,21 @@ class App extends React.Component {
     const data = getDadosApi.map(item => {
       return item.dt_txt
     })
+    console.log(getDadosApi)
     return (
       <div>
         <div className="wrapper">
-          <div >
+          <div>
             <div>
               <div className="row" style={{ display: 'flex', flexDirection: 'row' }}>
                 <div className="col-xs-5 title-container">
                   <Capa />
                 </div>
                 <div className="col-xs-7 form-container">
+                  <div className="titulo-h" style={{ marginBottom: '30px', display: 'flex' }}>
+                    <h2 style={{ marginRight: '8px', color: '#f16051' }}>OpenWeatherMap</h2>
+                    <h4 style={{ marginTop: '8px', color: '#fff' }}> 5 day weather forecast</h4>
+                  </div>
                   <Form
                     handleBuscarDados={this.handleBuscarDados}
                   />
@@ -101,16 +112,21 @@ class App extends React.Component {
                     cidade ?
                       <div>
                         <p className="linx__info linx__key"> Data e Hora</p>
-                        <FormControl as="select"
-                          style={{ width: '12vw', background: '#f8e3e1' }}>
-                          {
-                            data.map(item => {
-                              return (
-                                <option value={dateTime}>{moment(item).format("DD/MM/YYYY HH:mm")}</option>
-                              )
-                            })
-                          }
-                        </FormControl>
+                        <ListGroup>
+                          {data.map((item) => {
+                            return (
+                              <ListGroupItem
+                                key={item}
+                                onClick={
+                                  () => this.handleOnChangeSolicitacao(item)
+                                }
+                                active={dateTime === item}
+                              >
+                                {moment(item).format("DD/MM/YYYY HH:mm")}
+                              </ListGroupItem>
+                            );
+                          })}
+                        </ListGroup>
                       </div>
                       : null
                   }

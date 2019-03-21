@@ -55,7 +55,7 @@ body {
 .form-container {
   background-color: #2c3e50;
   height: 90vh;
-  padding-top: 80px;
+  padding-top: 30px;
   padding-left: 50px;
   width: 50vw;
 }
@@ -136,4 +136,30 @@ button:active {
 .modal-footer,
 .modal-content {
   width: 900px;
+}
+
+.list-group {
+  padding: 3px;
+  border: 1px solid;
+  height: 230px;
+  overflow-y:auto;
+  width: 200px;
+  margin-bottom: 0px;
+  background-color: #f16051;
+    border-color: #f16051;
+}
+
+.list-group-item {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 5px;
+  padding: 15px;
+}
+
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #2c3e50;
+  border-color: #2c3e50;
 }
