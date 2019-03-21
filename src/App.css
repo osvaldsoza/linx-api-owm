@@ -34,7 +34,7 @@ body {
   justify-content: center;
   text-align: center;
   color: #000;
-  width: 29vw;
+  width: 31vw;
 }
 
 .title-container__title {
@@ -57,7 +57,7 @@ body {
   height: 90vh;
   padding-top: 30px;
   padding-left: 50px;
-  width: 50vw;
+  width: 40vw;
 }
 
 input[type="text"] {

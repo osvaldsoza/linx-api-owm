@@ -108,6 +108,7 @@ class App extends React.Component {
     } = this.state
 
     const dadosDataSelecionada = {
+      cidade,
       dateTime,
       tempMax,
       temMin,
