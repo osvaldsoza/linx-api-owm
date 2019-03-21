@@ -19,17 +19,6 @@ class App extends React.Component {
     pais: '',
     error: '',
     getDadosDatas: [],
-    tempMax: '',
-    temMin: '',
-    //humidade: '',
-    grndLevel: '',
-    pressure: '',
-    seaLevel: '',
-    temp: '',
-    tempKf: '',
-    main: '',
-    description: '',
-    speedWind: ''
   }
 
   handleBuscarDados = (e) => {
@@ -67,11 +56,10 @@ class App extends React.Component {
   }
 
   handleOnChangeSolicitacao = (dateTime) => {
-    let dadosData = {}
     this.setState({
       dateTime
     }, () => {
-      dadosData = this.state.getDadosDatas.filter(item => item.dt_txt === dateTime).map(i => ({
+      const dadosData = this.state.getDadosDatas.filter(item => item.dt_txt === dateTime).map(i => ({
         tempMax: i.main.temp_max,
         temMin: i.main.temp_min,
         humidade: i.main.humidity,
@@ -98,10 +86,8 @@ class App extends React.Component {
         speedWind: dadosData[0].speedWind
       });
     })
-    
   }
   render() {
-    console.log(this.state.humidade)
     const {
       cidade,
       pais,
@@ -120,6 +106,22 @@ class App extends React.Component {
       description,
       speedWind
     } = this.state
+
+    const dadosDataSelecionada = {
+      dateTime,
+      tempMax,
+      temMin,
+      humidade,
+      grndLevel,
+      pressure,
+      seaLevel,
+      temp,
+      tempKf,
+      main,
+      description,
+      speedWind
+    }
+
     const data = getDadosDatas.map(item => {
       return item.dt_txt
     })
@@ -131,7 +133,7 @@ class App extends React.Component {
               <div className="row" style={{ display: 'flex', flexDirection: 'row' }}>
                 <div className="col-xs-5 title-container">
                   <Capa
-                    humidade={humidade}
+                    dadosDataSelecionada={dadosDataSelecionada}
                   />
                 </div>
                 <div className="col-xs-7 form-container">
