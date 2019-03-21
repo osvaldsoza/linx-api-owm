@@ -17,14 +17,19 @@ class App extends React.Component {
   state = {
     cidade: '',
     pais: '',
-    populacao: '',
     error: '',
-    data: [],
-    humidade: '',
-    temperatura: '',
-    clima: '',
     getDadosDatas: [],
-    api_call: []
+    tempMax: '',
+    temMin: '',
+    //humidade: '',
+    grndLevel: '',
+    pressure: '',
+    seaLevel: '',
+    temp: '',
+    tempKf: '',
+    main: '',
+    description: '',
+    speedWind: ''
   }
 
   handleBuscarDados = (e) => {
@@ -32,14 +37,8 @@ class App extends React.Component {
     this.setState({
       cidade: '',
       pais: '',
-      data: '',
-      humidade: '',
-      temperatura: '',
-      clima: '',
       error: '',
-      dateTime: '',
-      dadosDataSelecionada: {}
-
+      dateTime: ''
     });
     const cidade = e.target.elements.cidade.value;
 
@@ -65,15 +64,14 @@ class App extends React.Component {
         error: "Informe a Cidade para consulta!"
       });
     }
-
-    console.log(this.state.getDadosDatas)
   }
 
   handleOnChangeSolicitacao = (dateTime) => {
+    let dadosData = {}
     this.setState({
       dateTime
     }, () => {
-       const dadosData = this.state.getDadosDatas.filter(item => item.dt_txt === dateTime).map(i => ({
+      dadosData = this.state.getDadosDatas.filter(item => item.dt_txt === dateTime).map(i => ({
         tempMax: i.main.temp_max,
         temMin: i.main.temp_min,
         humidade: i.main.humidity,
@@ -86,17 +84,41 @@ class App extends React.Component {
         description: i.weather[0].description,
         speedWind: i.wind.speed
       }))
-      console.log(this.state.getDadosDatas)
-      console.log(dadosData.humidade)
+      this.setState({
+        tempMax: dadosData[0].tempMax,
+        temMin: dadosData[0].temMin,
+        humidade: dadosData[0].humidade,
+        grndLevel: dadosData[0].grndLevel,
+        pressure: dadosData[0].pressure,
+        seaLevel: dadosData[0].seaLevel,
+        temp: dadosData[0].temp,
+        tempKf: dadosData[0].tempKf,
+        main: dadosData[0].main,
+        description: dadosData[0].description,
+        speedWind: dadosData[0].speedWind
+      });
     })
+    
   }
   render() {
+    console.log(this.state.humidade)
     const {
       cidade,
       pais,
       getDadosDatas,
       error,
-      dateTime
+      dateTime,
+      tempMax,
+      temMin,
+      humidade,
+      grndLevel,
+      pressure,
+      seaLevel,
+      temp,
+      tempKf,
+      main,
+      description,
+      speedWind
     } = this.state
     const data = getDadosDatas.map(item => {
       return item.dt_txt
@@ -108,10 +130,12 @@ class App extends React.Component {
             <div>
               <div className="row" style={{ display: 'flex', flexDirection: 'row' }}>
                 <div className="col-xs-5 title-container">
-                  <Capa />
+                  <Capa
+                    humidade={humidade}
+                  />
                 </div>
                 <div className="col-xs-7 form-container">
-                  <div className="titulo-h" style={{ marginBottom: '30px', display: 'flex' }}>
+                  <div style={{ marginBottom: '30px', display: 'flex' }}>
                     <h2 style={{ marginRight: '8px', color: '#f16051' }}>OpenWeatherMap</h2>
                     <h4 style={{ marginTop: '8px', color: '#fff' }}> 5 day weather forecast</h4>
                   </div>
