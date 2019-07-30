@@ -141,7 +141,7 @@ button:active {
 .list-group {
   padding: 3px;
   border: 1px solid;
-  height: 230px;
+  height: 130px;
   overflow-y:auto;
   width: 200px;
   margin-bottom: 0px;
@@ -154,7 +154,7 @@ button:active {
   align-items: center;
   display: flex;
   margin-top: 5px;
-  padding: 15px;
+  padding: 0px;
 }
 
 .list-group-item.active {

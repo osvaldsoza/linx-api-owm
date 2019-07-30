@@ -138,8 +138,8 @@ class App extends React.Component {
                   />
                 </div>
                 <div className="col-xs-7 form-container">
-                  <div style={{ marginBottom: '30px', display: 'flex' }}>
-                    <h2 style={{ marginRight: '8px', color: '#f16051' }}>OpenWeatherMap</h2>
+                  <div style={{ marginBottom: '30px', textAlign:'center'}}>
+                    <h2 style={{ marginRight: '8px', color: '#f16051' }}>Open Weather Map</h2>
                     <h4 style={{ marginTop: '8px', color: '#fff' }}> 5 day weather forecast</h4>
                   </div>
                   <Form
