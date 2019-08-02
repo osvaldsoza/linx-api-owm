@@ -20,12 +20,13 @@ class App extends React.Component {
 
   handleBuscarDados = (e) => {
     e.preventDefault();
+
     this.setState({
       cidade: '',
       pais: '',
-      error: '',
-      dateTime: ''
+      error: ''
     });
+
     const cidade = e.target.elements.cidade.value;
 
     if (cidade.trim()) {
@@ -84,6 +85,7 @@ class App extends React.Component {
       });
     })
   }
+
   render() {
     const {
       cidade,
@@ -104,7 +106,7 @@ class App extends React.Component {
       speedWind
     } = this.state
 
-    const dadosDataSelecionada = {
+    const propsCapa = {
       cidade,
       dateTime,
       tempMax,
@@ -124,54 +126,47 @@ class App extends React.Component {
       return item.dt_txt
     })
     return (
-      <div>
-        <div className="wrapper">
-          <div>
-            <div>
-              <div className="row" style={{ display: 'flex', flexDirection: 'row' }}>
-                <div className="col-xs-5 title-container">
-                  <Capa
-                    dadosDataSelecionada={dadosDataSelecionada}
-                  />
-                </div>
-                <div className="col-xs-7 form-container">
-                  <div style={{ marginBottom: '30px', textAlign:'center'}}>
-                    <h2 style={{ marginRight: '8px', color: '#f16051' }}>Open Weather Map</h2>
-                    <h4 style={{ marginTop: '8px', color: '#fff' }}> 5 day weather forecast</h4>
-                  </div>
-                  <Form
-                    handleBuscarDados={this.handleBuscarDados}
-                  />
-                  <Apresentacao
-                    cidade={cidade}
-                    pais={pais}
-                    error={error}
-                  />
-                  {
-                    cidade ?
-                      <div>
-                        <p className="linx__info linx__key"> Data e Hora</p>
-                        <ListGroup>
-                          {data.map((item) => {
-                            return (
-                              <ListGroupItem
-                                key={item}
-                                onClick={
-                                  () => this.handleOnChangeSolicitacao(item)
-                                }
-                                active={dateTime === item}
-                              >
-                                {moment(item).format("DD/MM/YYYY - HH:mm")}
-                              </ListGroupItem>
-                            );
-                          })}
-                        </ListGroup>
-                      </div>
-                      : null
-                  }
-                </div>
-              </div>
+      <div className="container">
+        <div className="row" style={{ display: 'flex', flexDirection: 'row' }}>
+         {/*  <div className="col-xs-5 title-container">
+            <Capa propsCapa={propsCapa} />
+    </div> */}
+          <div className="form-container">
+            <div className="jumbotron" style={{ marginBottom: '30px' }}>
+              <h3 style={{ marginRight: '8px'}}>Open Weather Map</h3>
+              <p style={{ marginTop: '8px' }}> 5 day weather forecast</p>
             </div>
+            <Form
+              handleBuscarDados={this.handleBuscarDados}
+              error={error}
+            />
+            <Apresentacao
+              cidade={cidade}
+              pais={pais}
+           
+            />
+            {
+              cidade ?
+                <div>
+                  <p className="linx__info linx__key"> Data e Hora</p>
+                  <ListGroup>
+                    {data.map((item) => {
+                      return (
+                        <ListGroupItem
+                          key={item}
+                          onClick={
+                            () => this.handleOnChangeSolicitacao(item)
+                          }
+                          active={dateTime === item}
+                        >
+                          {moment(item).format("DD/MM/YYYY - HH:mm")}
+                        </ListGroupItem>
+                      );
+                    })}
+                  </ListGroup>
+                </div>
+                : null
+            }
           </div>
         </div>
       </div>

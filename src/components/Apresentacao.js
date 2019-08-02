@@ -7,9 +7,6 @@ const Apresentacao = props =>
 	 		<span className="linx__value"> {props.cidade}, {props.pais}</span>
 			</p>
 		}
-		{
-			props.error && <p className="linx__error">{props.error}</p>
-		}
 
 	</div>
 
