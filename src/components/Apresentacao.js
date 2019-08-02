@@ -1,8 +1,7 @@
 import React from "react";
 
-const Apresentacao = props => (
+const Apresentacao = props =>
 	<div className="linx__info">
-		
 		{
 			props.cidade && props.pais && <p className="linx__key"> Localização:
 	 		<span className="linx__value"> {props.cidade}, {props.pais}</span>
@@ -13,6 +12,5 @@ const Apresentacao = props => (
 		}
 
 	</div>
-);
 
 export default Apresentacao;

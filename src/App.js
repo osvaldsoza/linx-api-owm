@@ -7,11 +7,8 @@ import axios from "axios"
 import {
   ListGroup,
   ListGroupItem
-
 } from 'react-bootstrap';
 import moment from 'moment';
-
-const API_KEY = "3352c2738fdf23a0cd968b8f63c5e4a1"
 
 class App extends React.Component {
   state = {
@@ -32,7 +29,7 @@ class App extends React.Component {
     const cidade = e.target.elements.cidade.value;
 
     if (cidade.trim()) {
-      axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt`)
+      axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=3352c2738fdf23a0cd968b8f63c5e4a1&units=metric&lang=pt`)
         .then((res) => {
           this.setState({
             cidade: res.data.city.name,
@@ -148,7 +145,6 @@ class App extends React.Component {
                   <Apresentacao
                     cidade={cidade}
                     pais={pais}
-                    data={data}
                     error={error}
                   />
                   {
