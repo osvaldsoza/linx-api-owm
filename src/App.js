@@ -8,7 +8,8 @@ import DateTimes from './components/DateTimes'
 
 class App extends Component {
   state = {
-    cidade: '',
+    cidade:'',
+    cidadeApi: '',
     pais: '',
     error: '',
     json: [],
@@ -18,12 +19,11 @@ class App extends Component {
     if (this.state.cidade.trim()) {
       axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${this.state.cidade}&appid=3352c2738fdf23a0cd968b8f63c5e4a1&units=metric&lang=pt`)
         .then((res) => {
-          console.log(res)
           this.setState({
-            cidade: res.data.city.name,
+            cidadeApi: res.data.city.name,
             pais: res.data.city.country,
             json: res.data.list,
-            error: ''
+            error: '',
           });
         }).catch(e => {
           this.setState({
@@ -34,46 +34,53 @@ class App extends Component {
         })
     } else {
       this.setState({
-        cidade: '',
+        cidadeApi: '',
         pais: '',
-        error: "Informe a Cidade para consulta!"
+        error: "Informe uma cidade para consulta!"
       });
     }
   }
 
   handleFieldChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+    if(e.target.value.length === 0){
+      this.setState({
+        cidadeApi: '', 
+        pais: '',
+      dataSelecionada:''})
+    }
   }
 
-  handleOnChangeSolicitacao = (dateTime) => {
+  handleOnChangeSolicitacao = (dataSelecionada) => {
     this.setState({
-      dateTime
+      dataSelecionada
     }, () => {
-      const dadosData = this.state.json.filter(item => item.dt_txt === dateTime).map(i => ({
+      const forecast = this.state.json.filter(item => item.dt_txt === dataSelecionada).map(i => ({
         tempMax: i.main.temp_max,
         temMin: i.main.temp_min,
         humidade: i.main.humidity,
         temp: i.main.temp,
         speedWind: i.wind.speed
       }))
-      console.log(dadosData)
+
       this.setState({
-        tempMax: dadosData[0].tempMax,
-        temMin: dadosData[0].temMin,
-        humidade: dadosData[0].humidade,
-        temp: dadosData[0].temp,
-        speedWind: dadosData[0].speedWind
+        tempMax: forecast[0].tempMax,
+        temMin: forecast[0].temMin,
+        humidade: forecast[0].humidade,
+        temp: forecast[0].temp,
+        speedWind: forecast[0].speedWind
       });
     })
   }
 
   render() {
     const {
+      cidadeApi,
       cidade,
       pais,
       json,
       error,
-      dateTime,
+      dataSelecionada,
       tempMax,
       temMin,
       humidade,
@@ -102,22 +109,22 @@ class App extends Component {
             <div style={{ marginTop: '15px' }} />
 
             <Localizacao
-              cidade={cidade}
+              cidadeApi={cidadeApi}
               pais={pais}
             />
 
             <DateTimes
-              cidade={cidade}
+              cidadeApi={cidadeApi}
               pais={pais}
               data={data}
               handleOnChangeSolicitacao={this.handleOnChangeSolicitacao}
-              dateTime={dateTime}
+              dataSelecionada={dataSelecionada}
             />
           </div>
 
           <Forecast
-            dateTime={dateTime}
-            cidade={cidade}
+            dataSelecionada={dataSelecionada}
+            cidadeApi={cidadeApi}
             humidade={humidade}
             speedWind={speedWind}
             temp={temp}

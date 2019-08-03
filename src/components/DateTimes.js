@@ -6,7 +6,7 @@ import {
   } from 'react-bootstrap';
 
 export default props =>
-    props.cidade && props.pais ?
+    props.cidadeApi && props.pais ?
       <div>
         <strong>Data e Hora</strong>
         <ListGroup>
@@ -17,7 +17,7 @@ export default props =>
                 onClick={
                   () => props.handleOnChangeSolicitacao(item)
                 }
-                active={props.dateTime === item}
+                active={props.dataSelecionada === item}
               >
                 {moment(item).format("DD/MM/YYYY - HH:mm")}
               </ListGroupItem>

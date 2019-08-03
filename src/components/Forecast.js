@@ -4,37 +4,37 @@ import moment from 'moment';
 export default props => (
 	<ul>
 		{
-			props.dateTime && 	props.cidade &&
+			props.dataSelecionada && 	props.cidadeApi &&
 			<li> Data e Hora:
- 				<strong> {moment(props.dateTime).format("DD/MM/YYYY - HH:mm")}</strong>
+ 				<strong> {moment(props.dataSelecionada).format("DD/MM/YYYY - HH:mm")}</strong>
 			</li>
 		}
 		{
-			props.humidade && props.cidade &&
+			props.humidade && props.cidadeApi &&
 			<li> Humidade:
 	 			<strong> {props.humidade}</strong>
 			</li>
 		}
 		{
-			props.speedWind && props.cidade &&
+			props.speedWind && props.cidadeApi &&
 			<li> Velocidade do Vento:
 	 			<strong> {props.speedWind}</strong>
 			</li>
 		}
 		{
-			props.temp && props.cidade &&
+			props.temp && props.cidadeApi &&
 			<li> Temperatura Atual:
 	 			<strong> {props.temp}</strong>
 			</li>
 		}
 		{
-			props.tempMax && props.cidade &&
+			props.tempMax && props.cidadeApi &&
 			<li> Máxima:
 	 			<strong> {props.tempMax}</strong>
 			</li>
 		}
 		{
-			props.temMin && props.cidade &&
+			props.temMin && props.cidadeApi &&
 			<li> Mínima:
 	 			<strong> {props.temMin}</strong>
 			</li>
