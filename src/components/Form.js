@@ -5,13 +5,18 @@ export default props =>
 		<div style={{ display: 'flex', width: '50vw' }}>
 			<input
 				className="form-control"
-				type="text" 
+				type="text"
 				name="cidade"
 				value={props.cidade}
-				placeholder= {props.error ? props.error : 'Nome da cidade'}
+				placeholder='Nome da cidade'
 				style={{ width: '300px', display: 'block' }}
 				onChange={props.handleFieldChange}
 			/>
+			{
+				props.error && props.cidade.length === 0 &&
+				<span className="alert alert-danger">{props.error}</span>
+			}
+
 		</div>
 		<button className="btn btn-primary" onClick={props.handleBuscarDados}>Buscar</button>
 	</div>

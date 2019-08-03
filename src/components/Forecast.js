@@ -4,7 +4,7 @@ import moment from 'moment';
 export default props => (
 	<ul>
 		{
-			props.dataSelecionada && 	props.cidadeApi &&
+			props.dataSelecionada && props.cidadeApi &&
 			<li> Data e Hora:
  				<strong> {moment(props.dataSelecionada).format("DD/MM/YYYY - HH:mm")}</strong>
 			</li>

@@ -8,7 +8,7 @@ import DateTimes from './components/DateTimes'
 
 class App extends Component {
   state = {
-    cidade:'',
+    cidade: '',
     cidadeApi: '',
     pais: '',
     error: '',
@@ -43,11 +43,12 @@ class App extends Component {
 
   handleFieldChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    if(e.target.value.length === 0){
+    if (e.target.value.length === 0) {
       this.setState({
-        cidadeApi: '', 
+        cidadeApi: '',
         pais: '',
-      dataSelecionada:''})
+        dataSelecionada: ''
+      })
     }
   }
 
@@ -88,7 +89,7 @@ class App extends Component {
       speedWind
     } = this.state
 
-    const data = json.map(item => {
+    const dateTimes = json.map(item => {
       return item.dt_txt
     })
 
@@ -116,21 +117,23 @@ class App extends Component {
             <DateTimes
               cidadeApi={cidadeApi}
               pais={pais}
-              data={data}
+              dateTimes={dateTimes}
               handleOnChangeSolicitacao={this.handleOnChangeSolicitacao}
               dataSelecionada={dataSelecionada}
             />
           </div>
-
-          <Forecast
-            dataSelecionada={dataSelecionada}
-            cidadeApi={cidadeApi}
-            humidade={humidade}
-            speedWind={speedWind}
-            temp={temp}
-            tempMax={tempMax}
-            temMin={temMin}
-          />
+          {
+            dataSelecionada &&
+            <Forecast
+              dataSelecionada={dataSelecionada}
+              cidadeApi={cidadeApi}
+              humidade={humidade}
+              speedWind={speedWind}
+              temp={temp}
+              tempMax={tempMax}
+              temMin={temMin}
+            />
+          }
         </div>
       </div>
     );

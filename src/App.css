@@ -7,22 +7,27 @@
   }
   li{
     color:#007bff;
+    width: 300px;
   }
 .container{
   margin-top: 10px;
+  width: 672px;
 }
 
 .main-div{
   display: flex;
    flex-direction: row;
 }
+
 .div-left{
-  width: 400px;
+  width: 370px;
 }
+
 .jumbotron h3 {
   margin-right: 8px;
   text-align: center;
 }
+
 .jumbotron p {
   margin-top: 8px;
   text-align: center;
@@ -41,7 +46,7 @@
 .list-group {
   padding: 3px;
   border: 1px solid;
-  height: 130px;
+  height: 200px;
   overflow-y:auto;
   width: 200px;
   margin-bottom: 0px;
